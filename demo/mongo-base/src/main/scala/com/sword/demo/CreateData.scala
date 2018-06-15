@@ -23,12 +23,12 @@ class CreateData extends SparkPlus{
     mongoReader.drop(db,collection)
     mongoReader.drop(scoreDB,scoreCollection)
 
-    val students = FileUtil.read("student.properties").map(s => GsonUtils.parseJson(s,classOf[Student])).toSeq
+    val students = FileUtil.read("student.data").map(s => GsonUtils.parseJson(s,classOf[Student])).toSeq
     val SDF = session.createDataFrame(students)
     mongoReader.save(SDF,db,collection)
 
 
-    val scores = FileUtil.read("score.properties").map(s => GsonUtils.parseJson(s,classOf[Score])).toSeq
+    val scores = FileUtil.read("score.data").map(s => GsonUtils.parseJson(s,classOf[Score])).toSeq
     val scoreDF = session.createDataFrame(scores)
     mongoReader.save(scoreDF,scoreDB,scoreCollection)
 
